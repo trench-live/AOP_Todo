@@ -1,0 +1,16 @@
+.App {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #2D3047;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+h1 {
+  text-align: center;
+  color: #FF9B71;
+  font-size: 2.5em;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}

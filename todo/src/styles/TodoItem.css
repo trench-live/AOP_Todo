@@ -1,0 +1,56 @@
+.edit-btn {
+    background: none;
+    border: none;
+    color: #FF9B71;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 8px;
+    transition: transform 0.2s;
+}
+
+.edit-btn:hover {
+    transform: scale(1.1);
+}
+
+.controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.todo-item {
+    background: #3A3E5B;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.todo-item:hover {
+    transform: translateX(10px);
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #FF6B6B;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.content {
+    flex-grow: 1;
+}
+
+.content h3 {
+    margin: 0 0 0.5rem 0;
+}
+
+.content p {
+    color: #8B8FA6;
+    margin: 0;
+}
