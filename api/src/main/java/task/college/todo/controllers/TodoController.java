@@ -1,42 +1,56 @@
 package task.college.todo.controllers;
 
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import task.college.todo.aop.TrackTime;
 import task.college.todo.models.Todo;
 import task.college.todo.services.TodoService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/todos")
+@RequestMapping("/tasks")
 public class TodoController {
-    private final TodoService service;
+    @Autowired
+    private TodoService todoService;
 
-    public TodoController(TodoService service) {
-        this.service = service;
+    @PostMapping
+    @TrackTime
+    public ResponseEntity<Todo> create(@Valid @RequestBody Todo todo) {
+        Todo created = todoService.create(todo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @GetMapping
     @TrackTime
-    public List<Todo> getAll() {
-        return service.getAllTodos();
+    public ResponseEntity<List<Todo>> getAll(
+            @RequestParam(name = "completed") Optional<Boolean> completed) {
+        List<Todo> todos = todoService.getAll(completed);
+        return ResponseEntity.ok(todos);
     }
 
-    @PostMapping
-    @TrackTime
-    public Todo create(@RequestBody Todo todo) {
-        return service.createTodo(todo);
+    @GetMapping({"/{id}"})
+    public ResponseEntity<Todo> getById(@PathVariable long id) {
+        Todo todo = todoService.getById(id);
+        return todo != null ? ResponseEntity.ok(todo) :
+                              ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")
     @TrackTime
-    public Todo update(@PathVariable Long id, @RequestBody Todo todo) {
-        return service.updateTodo(id, todo);
+    public ResponseEntity<Todo> update(@Valid @PathVariable Long id, @RequestBody Todo todo) {
+        Todo updated = todoService.update(id, todo);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
     @TrackTime
-    public void delete(@PathVariable Long id) {
-        service.deleteTodo(id);
+    public ResponseEntity<Todo> delete(@PathVariable Long id) {
+        todoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
